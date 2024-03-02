@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use of Closure</title>
+</head>
+<body style="background-color: #313131;">
+    <button id="orange">Orange</button>
+    <button id="green">Green</button>
+    <button id="yellow">Yellow</button>
+    <button id="red">Red</button>
+  
+</body>
+
+    <script>
+    function init() {
+        let name = "Mozilla"; 
+        function displayName() {
+         //   console.log(name); 
+        }
+        displayName();
+    }
+    init();
+
+    function outer(){
+        let username = "raj" 
+        //console.log("OUTER", secret);  // variable can be accessed from parent to child not from the child to parent so secret is declared in child and using in parent so it will show error
+        function inner(){
+            let secret = "my123"       
+           // console.log("inner", username);
+        }
+        function innerTwo(){
+            //console.log("innerTwo", username);
+            //console.log(secret);
+        }
+        inner()
+        innerTwo()
+
+    }
+    outer()
+   // console.log("TOO OUTER", username);    // this will show undefined because it is console in outside of function or global scope
+
+
+    function makeFunc() {
+        const name = "Mozilla";
+        function displayName() {
+            //console.log(name);
+        }
+        return displayName;
+    }
+
+    const myFunc = makeFunc();
+    myFunc();
+
+    </script>
+
+
+
+    <script>
+
+        <!--   this method is used for less no. of functions when function is increases then we can not use this -->
+
+        // document.getElementById("orange").onclick = function(){
+        //     document.body.style.backgroundColor = `orange`
+        // }
+        // document.getElementById("green").onclick = function(){
+        //     document.body.style.backgroundColor = `green`
+        // }
+
+
+        // by this we can simply give the color of button in this function and use it 
+        function clickHandler(color){
+            // document.body.style.backgroundColor = `${color}`
+
+            return function(){
+                document.body.style.backgroundColor = `${color}`
+            }
+        }
+
+        document.getElementById('orange').onclick = clickHandler("orange")
+        document.getElementById('green').onclick = clickHandler("green")
+        document.getElementById('yellow').onclick = clickHandler("yellow")
+        document.getElementById('red').onclick = clickHandler("red")
+
+
+    </script>
+</html>
